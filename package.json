@@ -1,0 +1,26 @@
+{
+  "name": "korean-sports-stars",
+  "version": "1.0.0",
+  "description": "해외에서 활약중인 한국인 운동선수들의 경기 하이라이트, 기사등을 모아볼 수 있는 웹페이지만들기",
+  "type": "commonjs",
+  "main": "config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Junad-Park/Korean-Sports-Stars.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Junad-Park/Korean-Sports-Stars/issues"
+  },
+  "homepage": "https://github.com/Junad-Park/Korean-Sports-Stars#readme",
+  "dependencies": {
+    "@types/dotenv": "^8.2.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1"
+  }
+}
