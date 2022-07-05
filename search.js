@@ -31,7 +31,7 @@ function getChannelId(name, APIKey) {
 }
 
 // 해당 채널의 플레이리스트를 가져오는 함수
-function getChannelLists(channelId, APIKey, getVideos) {
+function getChannelLists(channelId, APIKey) {
   $.ajax({
     type: "GET",
     url: "https://www.googleapis.com/youtube/v3/playlists?",
@@ -82,7 +82,15 @@ function getVideos(APIKey) {
       console.log(koreanTimeTitle);
       // console.log(videoId);
       console.log(videoLinks);
+
+      const videos = koreanTimeTitle.reduce((acc, curr, idx) => {
+        acc[curr] = videoLinks[idx];
+        return acc;
+      }, new Object);
+
+      console.log(videos);
     }
   });
 
 };
+
