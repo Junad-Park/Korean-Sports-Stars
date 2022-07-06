@@ -2,20 +2,19 @@ import user from './config.js';
 
 const btn = document.querySelector(".btn");
 
-let channelId;
 
 const listTitle = [];
 const listId = [];
 const videoId = [];
+const snippets = [];
 const koreanTimeTitle = [];
 const videoLinks = [];
 
-btn.addEventListener('click', (e) => {
-  console.log(e.currentTarget.innerHTML);
-  let channelName = e.currentTarget.innerHTML;
-
-  getChannelId(channelName, user.YOUTUBE_API_KEY);
-})
+// btn.addEventListener('click', (e) => {
+// console.log(e.currentTarget.innerHTML);
+const channelName = btn.innerHTML;
+getChannelId(channelName, user.YOUTUBE_API_KEY);
+// })
 
 // 
 function getChannelId(name, APIKey) {
@@ -24,7 +23,7 @@ function getChannelId(name, APIKey) {
     url: "https://www.googleapis.com/youtube/v3/search?",
     data: { part: "snippet", key: APIKey, type: "video", q: name },
     success: function (response) {
-      channelId = response.items[0].snippet.channelId;
+      const channelId = response.items[0].snippet.channelId;
       getChannelLists(channelId, user.YOUTUBE_API_KEY, getVideos);
     },
   });
@@ -43,7 +42,7 @@ function getChannelLists(channelId, APIKey) {
       maxResults: 100,
     },
     success: function (response) {
-      let playListLength = response.pageInfo.totalResults;
+      const playListLength = response.pageInfo.totalResults;
       for (let i = 0; i < playListLength; i++) {
         listTitle.push(response.items[i].snippet.title);
         listId.push(response.items[i].id);
@@ -76,21 +75,28 @@ function getVideos(APIKey) {
 
       for (let j = 0; j < response.items.length; j++) {
         // videoId.push(response.items[j].snippet.resourceId.videoId);
+        snippets.push(response.items[j].snippet);
         koreanTimeTitle.push(response.items[j].snippet.title);
         videoLinks.push("https://www.youtube.com/watch?v=" + response.items[j].snippet.resourceId.videoId);
       }
-      console.log(koreanTimeTitle);
-      // console.log(videoId);
-      console.log(videoLinks);
+      // console.log(koreanTimeTitle);
+      // console.log(videoLinks);
 
-      const videos = koreanTimeTitle.reduce((acc, curr, idx) => {
-        acc[curr] = videoLinks[idx];
-        return acc;
-      }, new Object);
-
-      console.log(videos);
+      createObject();
     }
   });
 
 };
 
+function createObject() {
+  const videos = koreanTimeTitle.reduce((acc, curr, idx) => {
+    acc[curr] = videoLinks[idx];
+    return acc;
+  }, new Object);
+
+  return videos;
+}
+
+
+
+export { createObject, snippets };
