@@ -10,13 +10,9 @@ const snippets = [];
 const koreanTimeTitle = [];
 const videoLinks = [];
 
-// btn.addEventListener('click', (e) => {
-// console.log(e.currentTarget.innerHTML);
 const channelName = btn.innerHTML;
 getChannelId(channelName, user.YOUTUBE_API_KEY);
-// })
 
-// 
 function getChannelId(name, APIKey) {
   $.ajax({
     type: "GET",
@@ -44,8 +40,9 @@ function getChannelLists(channelId, APIKey) {
     success: function (response) {
       const playListLength = response.pageInfo.totalResults;
       for (let i = 0; i < playListLength; i++) {
-        listTitle.push(response.items[i].snippet.title);
         listId.push(response.items[i].id);
+        listTitle.push(response.items[i].snippet.title);
+        
       }
       getVideos(APIKey);
     },
@@ -88,12 +85,13 @@ function getVideos(APIKey) {
 
 };
 
+// Key : 영상 Title, Value : 영상 Link 인 객체 만드는 함수
 function createObject() {
   const videos = koreanTimeTitle.reduce((acc, curr, idx) => {
     acc[curr] = videoLinks[idx];
     return acc;
   }, new Object);
-
+  // console.log(videos);
   return videos;
 }
 
