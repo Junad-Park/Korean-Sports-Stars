@@ -1,7 +1,4 @@
-import user from './config.js';
-
-const btn = document.querySelector(".btn");
-
+import { user } from './config.js';
 
 const listTitle = [];
 const listId = [];
@@ -10,7 +7,7 @@ const snippets = [];
 const koreanTimeTitle = [];
 const videoLinks = [];
 
-const channelName = btn.innerHTML;
+const channelName = "스포츠타임"
 getChannelId(channelName, user.YOUTUBE_API_KEY);
 
 function getChannelId(name, APIKey) {
@@ -42,7 +39,7 @@ function getChannelLists(channelId, APIKey) {
       for (let i = 0; i < playListLength; i++) {
         listId.push(response.items[i].id);
         listTitle.push(response.items[i].snippet.title);
-        
+
       }
       getVideos(APIKey);
     },
@@ -68,13 +65,15 @@ function getVideos(APIKey) {
     success: function (response) {
       let temp_listTitle = listTitle[1];
       console.log("플레이 리스트 제목 : ", temp_listTitle);
-      // console.log(response.items);
+      console.log(response.items);
 
       for (let j = 0; j < response.items.length; j++) {
         // videoId.push(response.items[j].snippet.resourceId.videoId);
-        snippets.push(response.items[j].snippet);
-        koreanTimeTitle.push(response.items[j].snippet.title);
-        videoLinks.push("https://www.youtube.com/watch?v=" + response.items[j].snippet.resourceId.videoId);
+        if (!(response.items[j].snippet.title).includes("Private")) {
+          snippets.push(response.items[j].snippet);
+          koreanTimeTitle.push(response.items[j].snippet.title);
+          videoLinks.push("https://www.youtube.com/watch?v=" + response.items[j].snippet.resourceId.videoId);
+        }
       }
       // console.log(koreanTimeTitle);
       // console.log(videoLinks);
@@ -94,6 +93,9 @@ function createObject() {
   // console.log(videos);
   return videos;
 }
+
+
+
 
 
 
