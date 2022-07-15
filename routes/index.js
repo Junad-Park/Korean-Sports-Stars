@@ -9,7 +9,7 @@ const ctrl = require("./home.ctrl");
 
 router.post('/search', ctrl.vid);
 router.post('/snippets', ctrl.snip);
-// router.post('/db',database.db);
+router.post('/getDb', ctrl.getDb);
 
 
 

@@ -73,4 +73,26 @@ const Db = (Star_Obj) => {
 
 };
 
-module.exports = { snip, vid };
+const getDb = (req, res, next) => {
+  let jsonFile = require('jsonfile');
+  const mysql = require('./db');
+  const con = mysql.init();
+
+  mysql.db_open;
+
+  const sql = 'SELECT * FROM Youtube_Test WHERE Name = ?'
+  let params = req.body.name;
+
+  con.query(sql, params, (err, rows, fields) => {
+    if (err) {
+      console.log(err);
+    } else {
+      jsonFile.writeFile("star.json", rows)
+      console.log('rows', rows);
+      return rows;
+    }
+  });
+
+};
+
+module.exports = { snip, vid, getDb };

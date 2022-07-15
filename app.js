@@ -19,15 +19,16 @@ app.use(morgan("dev"));
 app.set('views', './views');
 app.set('view engine', 'ejs');
 
-
 const home = require("./routes/index");
 
 app.post("/snippets", home);
 app.post("/search", home);
-// app.post("/db", home);
+app.post("/getDb", home);
 
-app.get('/', function (req, res) {
-  res.render(__dirname + "/views/home");
+
+const star = require("./star.json");
+app.get('/', function (req, res, next) {
+  res.render(__dirname + "/views/home", { star });
 
 })
 
